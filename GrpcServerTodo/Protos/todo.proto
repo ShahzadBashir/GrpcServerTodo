@@ -1,0 +1,46 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcServerTodo";
+
+package todo;
+
+// The greeting service definition.
+
+service TodoService {
+	// Unary RPC to add an item
+	rpc AddTodo(TodoRequest) returns (TodoResponse);
+
+	// Unary RPC to remove an item
+	rpc RemoveTodo(RemoveTodoRequest) returns (TodoResponse);
+
+	// Unary RPC to complete an item
+	rpc CompleteTodo(CompleteTodoRequest) returns (TodoResponse);
+
+	// Bi directional streaming for real time updates
+	rpc TodoUpdates(stream TodoRequest) returns (stream TodoResponse);
+}
+
+// The request message containing the user's name.
+
+message Todo {
+	string id = 1;
+    string title = 2;
+    bool completed = 3;
+}
+
+message TodoRequest {
+	string title = 1;
+}
+
+message TodoResponse {
+	string status = 1;
+    Todo todo = 2;
+}
+
+message RemoveTodoRequest {
+	string id = 1;
+}
+
+message CompleteTodoRequest {
+	string id = 1;
+}
